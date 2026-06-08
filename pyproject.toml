@@ -1,0 +1,13 @@
+[project]
+name = "erp_rules"
+authors = [
+    { name = "Wilson Kao", email = "wilsonkao@508.dev" }
+]
+description = "Server-side rule engine for ERPNext — auto-fills and validates documents before save."
+requires-python = ">=3.10"
+dynamic = ["version"]
+dependencies = []
+
+[build-system]
+requires = ["flit_core >=3.4,<4"]
+build-backend = "flit_core.buildapi"
