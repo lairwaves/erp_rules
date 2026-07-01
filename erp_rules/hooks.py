@@ -5,6 +5,16 @@ app_description = "Server-side rule engine for ERPNext — auto-fills and valida
 app_email = "admin@508.dev"
 app_license = "mit"
 
+fixtures = [
+    {
+        "dt": "Custom Field",
+        "filters": [
+            ["dt", "=", "Purchase Invoice"],
+            ["fieldname", "=", "bypass_due_date_floor"],
+        ],
+    }
+]
+
 doc_events = {
     "Sales Invoice": {
         "before_save": "erp_rules.handlers.sales_invoice.before_save"
