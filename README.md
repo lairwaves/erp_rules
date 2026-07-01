@@ -16,7 +16,7 @@ Each rule is an independent class that inspects a document and returns a list of
 |------|-----------|---------------|
 | `CostCenterRule` | Sales Invoice, Purchase Invoice | Sets invoice-level `cost_center`: follows the Project's Default Cost Center if set; falls back to the company's "Projects" cost center if the project has none configured; sets "Main" if no project is assigned |
 | `LineItemSyncRule` | Sales Invoice, Purchase Invoice | Ensures all line items match the invoice-level `project` and `cost_center` |
-| `DueDateRule` | Purchase Invoice | Enforces a minimum gap between `posting_date` and `due_date` |
+| `DueDateRule` | Purchase Invoice | Enforces a minimum gap between `posting_date` and `due_date`. System Managers can tick **Bypass Due Date Floor** on an invoice to skip the minimum for late/resubmitted invoices (shows a reminder instead of auto-bumping) |
 
 ---
 
@@ -77,6 +77,14 @@ MIN_DUE_DATE_DAYS = 29  # change to suit your billing policy
 ```
 
 **Disabling a rule for a doctype** — remove it from the relevant handler's `RULES` list.
+
+**Bypassing `DueDateRule` on a single invoice** — Purchase Invoices carry a
+**Bypass Due Date Floor** checkbox (a Custom Field deployed via fixtures),
+visible to **System Managers only**. Ticking it skips the minimum-days floor
+for that invoice and shows a confirmation reminder instead of auto-bumping the
+date. The role is re-checked server-side, so the flag cannot be set via the API
+by non-managers. To change the authorized role, edit `BYPASS_ROLE` in
+`rules/due_date_rule.py`.
 
 ---
 
